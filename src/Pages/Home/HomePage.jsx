@@ -38,6 +38,7 @@ function HomePage({ data = [], ...props }) {
       Header: "Action",
       id: "action",
       accessor: (row) => {
+        console.log(row);
         return (
           <div>
             <Button
@@ -47,13 +48,15 @@ function HomePage({ data = [], ...props }) {
             >
               Review
             </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Commit
-            </Button>
+            {row.Answered === row.Asked && (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Commit
+              </Button>
+            )}
           </div>
         );
       },
