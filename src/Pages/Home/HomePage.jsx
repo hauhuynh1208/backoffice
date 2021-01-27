@@ -22,20 +22,42 @@ function HomePage({ data = [], ...props }) {
   const columns = [
     { Header: "Project Name", accessor: "projectName" },
     { Header: "System Name", accessor: "systemName" },
-    { Header: "Type", accessor: "status[0].Type" },
-    { Header: "Scope", accessor: "status[0].Scope" },
-    { Header: "Asked", accessor: "status[0].Asked" },
-    { Header: "Answered", accessor: "status[0].Answered" },
+    { Header: "Type", accessor: "Type" },
+    { Header: "Scope", accessor: "Scope" },
+    { Header: "Asked", accessor: "Asked" },
+    { Header: "Answered", accessor: "Answered" },
     {
       Header: "Latest User Edit",
-      id: "status[0].LastUserSibmitDT",
+      id: "LastUserSibmitDT",
       accessor: (d) => {
-        console.log(d);
-        return d["status[0].LastUserSibmitDT"];
+        return d["LastUserSibmitDT"];
       },
     },
-    { Header: "Latest Review", accessor: "status[0].LastReviewDT" },
-    { Header: "Action", accessor: "action" },
+    { Header: "Latest Review", accessor: "LastReviewDT" },
+    {
+      Header: "Action",
+      id: "action",
+      accessor: (row) => {
+        return (
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Review
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Commit
+            </Button>
+          </div>
+        );
+      },
+    },
   ];
   return (
     <Grid
@@ -70,11 +92,8 @@ function HomePage({ data = [], ...props }) {
             data={data}
             getCellProps={(cellInfo) => {
               const { row, column } = cellInfo;
-              if (column.id === "status[0].Answered") {
-                if (
-                  row.values["status[0].Answered"] ===
-                  row.values["status[0].Asked"]
-                ) {
+              if (column.id === "Answered") {
+                if (row.values["Answered"] === row.values["Asked"]) {
                   return {
                     style: {
                       backgroundColor: "red",
@@ -84,6 +103,7 @@ function HomePage({ data = [], ...props }) {
               }
               return { style: { backgroundColor: "white" } };
             }}
+            meta={props.meta}
           />
         )}
       </Box>
