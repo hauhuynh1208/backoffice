@@ -59,7 +59,10 @@ function Table({
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <TableRow {...row.getRowProps(getRowProps(row))}>
+              <TableRow
+                {...row.getRowProps(getRowProps(row))}
+                style={{ verticalAlign: "top" }}
+              >
                 {row.cells.map((cell) => {
                   return (
                     <TableCell

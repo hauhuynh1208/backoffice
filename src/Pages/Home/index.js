@@ -45,7 +45,8 @@ function Home(props) {
               resultSize: resp.data.body.resultSize,
               totalRecords: resp.data.body.totalRecords,
             },
-            data: reshapeData(resp.data.body.projects),
+            // data: reshapeData(resp.data.body.projects),
+            data: resp.data.body.projects,
           });
         }
       });
